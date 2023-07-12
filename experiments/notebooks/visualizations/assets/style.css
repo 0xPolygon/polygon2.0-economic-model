@@ -1,0 +1,33 @@
+body{
+    margin: 20px;
+}
+h1 {
+    font-size: 24px;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+label {
+  font-size: 14px;
+}
+.rc-slider-dot-active {  
+  border: solid 2px #d0d0f9;
+}
+.rc-slider-track {  
+  border: solid 2px #d0d0f9;
+}
+.rc-slider-handle {  
+  border: solid 2px #d0d0f9;
+}
+.slider-input{
+    margin-top:20px;
+}
+.input-row{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 370px));
+    justify-content: center;
+    grid-gap: 20px;
+}
+.output-row{
+    height: 600px;
+}
