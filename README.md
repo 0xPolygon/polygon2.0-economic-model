@@ -2,89 +2,14 @@
 
 [![Python package](https://github.com/CADLabs/ethereum-model/actions/workflows/python.yml/badge.svg)](https://github.com/CADLabs/ethereum-model/actions/workflows/python.yml)
 
-A modular dynamical-systems model of Ethereum's validator economics, based on the open-source Python library [radCAD](https://github.com/CADLabs/radCAD), an extension to [cadCAD](https://cadcad.org).
-
-## Table of Contents
-
-* [Introduction](#Introduction)
-  * [Model Features](#Model-Features)
-  * [Directory Structure](#Directory-Structure)
-  * [Model Architecture](#Model-Architecture)
-  * [Model Assumptions](#Model-Assumptions)
-  * [Mathematical Model Specification](#Mathematical-Model-Specification)
-  * [Differential Model Specification](#Differential-Model-Specification)
-* [Environment Setup](#Environment-Setup)
-* [Simulation Experiments](#Simulation-Experiments)
-* [Model Extension Roadmap](#Model-Extension-Roadmap)
-* [Tests](#Tests)
-* [Change Log](#Change-Log)
-* [Acknowledgements](#Acknowledgements)
-* [Contributors](#Contributors-)
-* [License](#License)
-
----
-
-## Introduction
-
-This open-source model was developed in collaboration with the Ethereum Robust Incentives Group and funded by an Ethereum ESP (Ecosystem Support Program) grant. While originally scoped with purely modelling-educational intent as part of the cadCAD Edu online course "[cadCAD Masterclass: Ethereum Validator Economics](https://www.cadcad.education/course/masterclass-ethereum)", it has evolved to become a highly versatile, customizable and extensible research model that includes a list of [model extension ideas](#Model-Extension-Roadmap). The model is focused on epoch- and population-level Ethereum validator economics across different deployment types and – at least in its initial setup – abstracts from slot- and agent-level dynamics. Please see [Model Assumptions](ASSUMPTIONS.md) for further context.
+A simulation model of Polygon 2.0 to study validator incentives and ecosystem security. It forked from [ethereum-economic-model](https://github.com/CADLabs/ethereum-economic-model) and has been constructed using the open-source Python library [radCAD](https://github.com/CADLabs/radCAD), which is an enhancement of [cadCAD](https://cadcad.org).
 
 
-### Directory Structure
-
-* [data/](data/): Datasets and API data sources (such as Etherscan.io and Beaconcha.in) used in the model
-* [docs/](docs/): Misc. documentation such as auto-generated docs from Python docstrings and Markdown docs
-* [experiments/](experiments/): Analysis notebooks and experiment workflow (such as configuration and execution)
-* [logs/](logs/): Experiment runtime log files
-* [model/](model/): Model software architecture (structural and configuration modules)
-* [tests/](tests/): Unit and integration tests for model and notebooks
-
-### Model Architecture
-
-The [model/](model/) directory contains the model's software architecture in the form of two categories of modules: structural modules and configuration modules.
-
-#### Structural Modules
-
-The model is composed of several structural modules in the [model/parts/](model/parts/) directory:
-
-| Module | Description |
-| --- | --- |
-| [ethereum_system.py](model/parts/ethereum_system.py) | General Ethereum mechanisms, such as managing the system upgrade process, the EIP-1559 transaction pricing mechanism, and updating the ETH price and ETH supply |
-| [pos_incentives.py](model/parts/pos_incentives.py) | Calculation of PoS incentives such as attestation and block proposal rewards and penalties |
-| [system_metrics.py](model/parts/system_metrics.py) | Calculation of metrics such as validator operational costs and yields |
-| [validators.py](model/parts/validators.py) | Validator processes such as validator activation, staking, and uptime |
-| [utils/ethereum_spec.py](model/parts/utils/ethereum_spec.py) | Relevant extracts from the official Eth2 spec |
-
-#### Configuration Modules
-
-The model is configured using several configuration modules in the [model/](model/) directory:
-
-| Module | Description |
-| --- | --- |
-| [constants.py](model/constants.py) | Constants used in the model, e.g. number of epochs in a year, Gwei in 1 Ether |
-| [state_update_blocks.py](model/state_update_blocks.py) | cadCAD model State Update Block structure, composed of Policy and State Update Functions |
-| [state_variables.py](model/state_variables.py) | Model State Variable definition, configuration, and defaults |
-| [stochastic_processes.py](model/stochastic_processes.py) | Helper functions to generate stochastic environmental processes |
-| [system_parameters.py](model/system_parameters.py) | Model System Parameter definition, configuration, and defaults |
-| [types.py](model/types.py) | Various Python types used in the model, such as the `Stage` Enum and calculation units |
-| [utils.py](model/utils.py) | Misc. utility and helper functions |
-
-### Model Assumptions
-
-The model implements the official Ethereum Specification wherever possible, but rests on a few default network-level and validator-level assumptions detailed in the [ASSUMPTIONS.md](ASSUMPTIONS.md) document.
-
-### Mathematical Model Specification
-
-The [Mathematical Model Specification](https://hackmd.io/@CADLabs/ryLrPm2T_) articulates the relevant system dynamics as a state-space representation, the mathematical modelling paradigm underlying the cadCAD simulation library. It can be understood as a minimum viable formalism necessary to enable solid cadCAD modelling.
-
-### Differential Model Specification
-
-The [Differential Model Specification](https://hackmd.io/@CADLabs/HyENPQ36u) depicts the model's overall structure across System States, System Inputs, System Parameters, State Update Logic and System Metrics.
 
 ## Environment Setup
 
-1. Clone or download the Git repository: `git clone https://github.com/CADLabs/ethereum-model` or using GitHub Desktop
-2. If completing the cadCAD Edu Masterclass MOOC, find and check out the latest ["Masterclass 🎓" release version](https://github.com/CADLabs/ethereum-economic-model/releases): e.g. `git checkout v.1.1.7`
-3. Set up your development environment using one of the following three options:
+1. Clone or download the Git repository: `git clone https://github.com/0xPolygon/polygon2.0-economic-model.git` or using GitHub Desktop
+2. Set up your development environment using one of the following three options:
 
 ### Option 1: Anaconda Development Environment
 
@@ -167,50 +92,18 @@ If you receive the following error and you use Anaconda, try: `conda install -c 
 
 ## Simulation Experiments
 
-The [experiments/](experiments/) directory contains modules for configuring and executing simulation experiments, as well as performing post-processing of the results.
+The [experiments/notebooks/Polygon_analysis](experiments/notebooks/Polygon_analysis) directory contains the most recent released cryptoeconomics simulation results. Specifically, [Polygon2.0 Economics v0.1](experiments/notebooks/Polygon_analysis/Polygon2.0_economics_v0.1.ipynb)presents a comprehensive analysis of the primary validator economics in the current model iteration. The simulation specs in this notebook is aligned with the POL whitepaper, ensuring that the simulation specifications are consistent with the official documentation.  The notebook shows
+* $POL token price trajectory
+* Three chains adoption rate scenarios
+* Validator yields over time per scenario
+* Validator profit break down analysis in both yields and dollars.
 
-The [experiments/notebooks/](experiments/notebooks/) directory contains initial validator-level and network-level experiment notebooks and analyses. These notebooks and analyses do not aim to comprehensively illuminate the Ethereum protocol, but rather to suggest insights into a few salient questions the Ethereum community has been discussing, and to serve as inspiration for researchers building out their own, customized analyses and structural model extensions.
 
-The [Experiment README notebook](experiments/notebooks/0_README.ipynb) contains an overview of how to execute existing experiment notebooks, and how to configure and execute new ones.
 
-#### Notebook 1. Model Validation
 
-The purpose of this notebook is to recreate selected simulations from the widely acknowledged Hoban/Borgers Ethereum 2.0 Economic Model using the CADLabs model, and to compare the results. We suggest that the CADLabs model has a high degree of validity.
 
-#### Notebook 2. Validator Revenue and Profit Yields (Validator-level Analysis)
 
-The purpose of this notebook is to explore the returns validators can expect from staking in the Ethereum protocol across different time horizons, adoption scenarios, ETH price scenarios and validator environments.
 
-* Analysis 1: Revenue and Profit Yields Over Time
-* Analysis 2: Revenue and Profit Yields Over ETH Staked
-* Analysis 3: Revenue and Profit Yields Over ETH Price
-* Analysis 4: Profit Yields Over ETH Staked vs. ETH Price (Yield Surface)
-* Analysis 5: Profit Yields By Validator Environment Over Time
 
-#### Notebook 3. Network Issuance and Inflation Rate (Network-level Analysis)
-
-The purpose of this notebook is to explore ETH issuance and the resulting annualized inflation rate across different time horizons and scenarios.
-
-* Analysis: Inflation Rate and ETH Supply Over Time
-
-## Model Extension Roadmap
-
-The modular nature of the model makes structural and experiment-level extensions straightforward. The [Model Extension Roadmap](ROADMAP.md) provides some inspiration.
-
-## Tests
-
-We use Pytest to test the `model` module code, as well as the notebooks.
-
-To execute the Pytest tests:
-```bash
-source venv/bin/activate
-python3 -m pytest tests
-```
-
-To run the full GitHub Actions CI Workflow (see [.github/workflows](.github/workflows)):
-```bash
-source venv/bin/activate
-make test
-```
 
 
