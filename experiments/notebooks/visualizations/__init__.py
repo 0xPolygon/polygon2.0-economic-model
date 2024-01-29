@@ -1,6 +1,7 @@
 import itertools
 import math
 from datetime import datetime
+import os 
 
 import pandas as pd
 import numpy as np
@@ -19,6 +20,13 @@ from model.system_parameters import parameters, validator_environments
 import model.constants as constants
 from . import multi_sim
 
+# Create a folder for storing experiment results
+output_folder = '../../outputs'
+output_images_folder = os.path.join(output_folder, 'jpegs')
+output_htmls_folder = os.path.join(output_folder, 'htmls')
+
+os.makedirs(output_images_folder, exist_ok=True)
+os.makedirs(output_htmls_folder, exist_ok=True)
 
 # Set plotly as the default plotting backend for pandas
 pd.options.plotting.backend = "plotly"
@@ -994,10 +1002,12 @@ def plot_number_of_supernets_per_subset(df, scenario_names):
         paper_bgcolor='rgba(255, 255, 255, 1)', 
     )
 
-    fig.write_html('/Users/wenxuan/Desktop/polygon/cadCAD/Token-Redesign/experiments/notebooks/visualizations/plots/adoption_rate.html')
+    html_file_path = os.path.join(output_htmls_folder, 'adoption_rate.html')
+    fig.write_html(html_file_path)
 
     fig.update_layout(autosize=False, width=900, height=600)
-    pio.write_image(fig, '/Users/wenxuan/Desktop/polygon/cadCAD/Token-Redesign/experiments/notebooks/visualizations/plots/adoption_rate.jpeg')
+    jpeg_file_path = os.path.join(output_images_folder, 'adoption_rate.jpeg')
+    pio.write_image(fig, jpeg_file_path)
 
     return fig
 
@@ -1067,11 +1077,13 @@ def plot_number_of_public_chains_per_subset(df, scenario_names):
         paper_bgcolor='rgba(255, 255, 255, 1)', 
     )
 
-    fig.write_html('/Users/wenxuan/Desktop/polygon/cadCAD/Token-Redesign/experiments/notebooks/visualizations/plots/adoption_rate_public.html')
+    html_file_path = os.path.join(output_htmls_folder, 'adoption_rate_public.html')
+    fig.write_html(html_file_path)
 
     fig.update_layout(autosize=False, width=900, height=600)
-    pio.write_image(fig, '/Users/wenxuan/Desktop/polygon/cadCAD/Token-Redesign/experiments/notebooks/visualizations/plots/adoption_rate_public.jpeg')
-
+    jpeg_file_path = os.path.join(output_images_folder, 'adoption_rate_public.jpeg')
+    pio.write_image(fig, jpeg_file_path)
+    
     return fig
 
 
@@ -1241,10 +1253,12 @@ def plot_yields_per_subset_subplots(df, scenario_names):
     )
 
     update_legend_names(fig)
-    fig.write_html('/Users/wenxuan/Desktop/polygon/cadCAD/Token-Redesign/experiments/notebooks/visualizations/plots/validator_yields.html')
+    html_file_path = os.path.join(output_htmls_folder, 'validator_yields.html')
+    fig.write_html(html_file_path)
 
     fig.update_layout(autosize=False, width=900, height=600)
-    pio.write_image(fig, '/Users/wenxuan/Desktop/polygon/cadCAD/Token-Redesign/experiments/notebooks/visualizations/plots/validator_yields.jpeg')
+    jpeg_file_path = os.path.join(output_images_folder, 'validator_yields.jpeg')
+    pio.write_image(fig, jpeg_file_path)
 
     return fig
 
@@ -2151,7 +2165,12 @@ def plot_validator_yields_breakdown_usd(df, subplot_titles=[]):
     fig.for_each_annotation(lambda a: a.update(text=a.text.split("=")[-1]))
 
     update_legend_names(fig)
-    fig.write_html('/Users/wenxuan/Desktop/polygon/cadCAD/Token-Redesign/experiments/notebooks/visualizations/plots/validator_profit_breakdown_in_usd.html')
+    html_file_path = os.path.join(output_htmls_folder, 'validator_profit_breakdown_in_usd.html')
+    fig.write_html(html_file_path)
+
+    fig.update_layout(autosize=False, width=900, height=600)
+    jpeg_file_path = os.path.join(output_images_folder, 'validator_profit_breakdown_in_usd.jpeg')
+    pio.write_image(fig, jpeg_file_path)
 
     return fig
 
@@ -2406,7 +2425,8 @@ def plot_validator_yields_breakdown_yields(df, subplot_titles=[]):
     fig.for_each_annotation(lambda a: a.update(text=a.text.split("=")[-1]))
 
     update_legend_names(fig)
-    fig.write_html('/Users/wenxuan/Desktop/polygon/cadCAD/Token-Redesign/experiments/notebooks/visualizations/plots/validator_profit_breakdown_in_yield.html')
+    html_file_path = os.path.join(output_htmls_folder, 'validator_profit_breakdown_in_yield.html')
+    fig.write_html(html_file_path)
 
     return fig
 
@@ -2521,7 +2541,8 @@ def plot_token_price(df):
     fig.for_each_annotation(lambda a: a.update(text=a.text.split("=")[-1]))
 
     update_legend_names(fig)
-    fig.write_html('/Users/wenxuan/Desktop/polygon/cadCAD/Token-Redesign/experiments/notebooks/visualizations/plots/token_price.html')
+    html_file_path = os.path.join(output_htmls_folder, 'token_price.html')
+    fig.write_html(html_file_path)
 
     return fig
 
@@ -2963,8 +2984,9 @@ def plot_slashing_amount_per_subset(df, scenario_names):
     )
 
     fig.update_layout(hovermode="x unified")
-    fig.write_html('/Users/wenxuan/Desktop/polygon/cadCAD/Token-Redesign/experiments/notebooks/visualizations/plots/slashable_amount.html')
 
+    html_file_path = os.path.join(output_htmls_folder, 'slashable_amount.html')
+    fig.write_html(html_file_path)
 
     return fig
 
@@ -3199,10 +3221,12 @@ def plot_treasury_balance(df):
     fig.for_each_annotation(lambda a: a.update(text=a.text.split("=")[-1]))
 
     update_legend_names(fig)
-    fig.write_html('/Users/wenxuan/Desktop/polygon/cadCAD/Token-Redesign/experiments/notebooks/visualizations/plots/treasury_inflow.html')
+    html_file_path = os.path.join(output_htmls_folder, 'treasury_inflow.html')
+    fig.write_html(html_file_path)
 
     fig.update_layout(autosize=False, width=900, height=600)
-    pio.write_image(fig, '/Users/wenxuan/Desktop/polygon/cadCAD/Token-Redesign/experiments/notebooks/visualizations/plots/treasury_inflow.jpeg')
+    jpeg_file_path = os.path.join(output_images_folder, 'treasury_inflow.jpeg')
+    pio.write_image(fig, jpeg_file_path)
 
     return fig
 
@@ -3228,10 +3252,10 @@ def plot_treasury_balance_barplot(df):
 
 
     update_legend_names(fig)
-    fig.write_html('/Users/wenxuan/Desktop/polygon/cadCAD/Token-Redesign/experiments/notebooks/visualizations/plots/treasury_inflow_barplot.html')
+    fig.write_html('../../outputs/htmls/treasury_inflow_barplot.html')
 
     fig.update_layout(autosize=False, width=900, height=600)
-    pio.write_image(fig, '/Users/wenxuan/Desktop/polygon/cadCAD/Token-Redesign/experiments/notebooks/visualizations/plots/treasury_inflow_barplot.jpeg')
+    pio.write_image(fig, '../../outputs/jpegs/treasury_inflow_barplot.jpeg')
 
     return fig
 
@@ -3332,10 +3356,12 @@ def plot_validator_emission_model(df):
     fig.for_each_annotation(lambda a: a.update(text=a.text.split("=")[-1]))
 
     update_legend_names(fig)
-    fig.write_html('/Users/wenxuan/Desktop/polygon/cadCAD/Token-Redesign/experiments/notebooks/visualizations/plots/Validator_emission_model.html')
+    html_file_path = os.path.join(output_htmls_folder, 'Validator_emission_model.html')
+    fig.write_html(html_file_path)
 
     fig.update_layout(autosize=False, width=900, height=600)
-    pio.write_image(fig, '/Users/wenxuan/Desktop/polygon/cadCAD/Token-Redesign/experiments/notebooks/visualizations/plots/Validator_emission_model.jpeg')
+    jpeg_file_path = os.path.join(output_images_folder, 'Validator_emission_model.jpeg')
+    pio.write_image(fig, jpeg_file_path)
 
     return fig
 
@@ -3393,9 +3419,11 @@ def plot_treasury_emission_model(df):
     fig.for_each_annotation(lambda a: a.update(text=a.text.split("=")[-1]))
 
     update_legend_names(fig)
-    fig.write_html('/Users/wenxuan/Desktop/polygon/cadCAD/Token-Redesign/experiments/notebooks/visualizations/plots/Treasury_emission_model.html')
+    html_file_path = os.path.join(output_htmls_folder, 'Treasury_emission_model.html')
+    fig.write_html(html_file_path)
 
     fig.update_layout(autosize=False, width=900, height=600)
-    pio.write_image(fig, '/Users/wenxuan/Desktop/polygon/cadCAD/Token-Redesign/experiments/notebooks/visualizations/plots/Treasury_emission_model.jpeg')
-
+    jpeg_file_path = os.path.join(output_images_folder, 'Treasury_emission_model.jpeg')
+    pio.write_image(fig, jpeg_file_path)
+    
     return fig
